@@ -174,6 +174,7 @@ var Simulator = (function() {
 		var min, max;
 		var drops, seed;
 		var goldenBonus = 0;
+		var actualGoldenBonus = 0;
 		var totalDrops = 0;
 		
 		var minimum = Number.MAX_VALUE;
@@ -214,6 +215,7 @@ var Simulator = (function() {
 							goldenBonus += 0.02 * (i / goldenInterval + z1golden);
 						}
 					}
+					actualGoldenBonus = i < 160 ? goldenBonus + 0.2 : goldenBonus;
 					
 					if(i >= startZone) {
 						if(i === startZone)
@@ -235,7 +237,7 @@ var Simulator = (function() {
 							if(max > 200) max = 200;
 							min = (max > 80) ? (1000 + ((max - 80) * 13)) : 1000;
 							min *= (1 - heirloomPrc);
-							min *= (1 - goldenBonus);
+							min *= (1 - actualGoldenBonus);
 							
 							var chance = (Math.floor((_lastVoidMap - min) / 10) / 50000);
 							_lastVoidMap++;
@@ -310,9 +312,9 @@ var Simulator = (function() {
 		}
 		
 		this.updateSwitches = function() {
-			textResultDropChance.innerHTML = ((1 - heirloomPrc) * (1 - goldenBonus));
+			textResultDropChance.innerHTML = `${((1 - heirloomPrc) * (1 - goldenBonus))} (${((1 - heirloomPrc) * (1 - goldenBonus - 0.2))})`;
 			textResultGoldenInterval.innerHTML = goldenInterval ? goldenInterval : "none";
-			textResultFinalGoldenVoidPrc.innerHTML = goldenBonus * 100;
+			textResultFinalGoldenVoidPrc.innerHTML = `${goldenBonus * 100} (${(goldenBonus + 0.2) * 100} with cruffys)`;
 			textResultVoidMaxLevel.innerHTML = max;
             textResultBoneVoidMaps.innerHTML = boneVoidMaps;
 			textResultTargetZone.innerHTML = targetZone;
