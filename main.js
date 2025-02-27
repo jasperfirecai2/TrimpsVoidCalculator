@@ -215,7 +215,7 @@ var Simulator = (function() {
 							goldenBonus += 0.02 * (i / goldenInterval + z1golden);
 						}
 					}
-					actualGoldenBonus = i < 160 ? goldenBonus + 0.2 : goldenBonus;
+					actualGoldenBonus = i <= 160 ? goldenBonus + 0.2 : goldenBonus;
 					
 					if(i >= startZone) {
 						if(i === startZone)
@@ -312,7 +312,7 @@ var Simulator = (function() {
 		}
 		
 		this.updateSwitches = function() {
-			textResultDropChance.innerHTML = `${((1 - heirloomPrc) * (1 - goldenBonus))} (${((1 - heirloomPrc) * (1 - goldenBonus - 0.2))})`;
+			textResultDropChance.innerHTML = `${((1 - heirloomPrc) * (1 - goldenBonus))} (${((1 - heirloomPrc) * (1 - goldenBonus - 0.2))} with cruffys)`;
 			textResultGoldenInterval.innerHTML = goldenInterval ? goldenInterval : "none";
 			textResultFinalGoldenVoidPrc.innerHTML = `${goldenBonus * 100} (${(goldenBonus + 0.2) * 100} with cruffys)`;
 			textResultVoidMaxLevel.innerHTML = max;
